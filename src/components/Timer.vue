@@ -17,6 +17,7 @@ function start() {
 
 function stop() {
   clearInterval(timer.value);
+  timeInSeconds.value = 0;
   isTiming.value = false;
   emit("timerStopped", timeInSeconds);
 }

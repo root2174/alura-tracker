@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import ITask from "../interfaces/ITask";
 import Timer from "./Timer.vue";
 
 const description = ref("");
+const emit = defineEmits(["taskDone"]);
 
-function finalizarTarefa() {
-  console.log("Tarefa Finalizada", description.value);
+function taskDone(timeInSeconds: number) {
+  emit("taskDone", {
+    description: description.value,
+    timeInSeconds,
+  } as ITask);
   description.value = "";
 }
 </script>
@@ -22,7 +27,7 @@ function finalizarTarefa() {
         />
       </div>
       <div class="column">
-        <Timer @timer-stopped="finalizarTarefa" />
+        <Timer @timer-stopped="taskDone" />
       </div>
     </div>
   </div>
